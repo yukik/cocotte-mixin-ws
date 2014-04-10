@@ -1,0 +1,30 @@
+{
+  "name": "cocotte-mixin-ws",
+  "description": "webscoketのミドルウェアをkoaで使えるようにする",
+  "homepage": "https://github.com/yukik",
+  "keywords": [
+    "koa",
+    "socket.io",
+    "websocket"
+  ],
+  "author": "Yuki Kurata <yuki.kurata@gmail.com>",
+  "dependencies": {
+    "debug": "*",
+    "koa-compose": "*",
+    "co": "*",
+    "socket.io": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yukik/cocotte-mixin-ws.git"
+  },
+  "main": "application.js",
+  "version": "0.1.0",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yukik/cocotte-mixin-ws/issues"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
