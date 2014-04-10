@@ -1,4 +1,4 @@
-app-mixin-ws
+cocotte-mixin-ws
 ============
 
 koaフレームワークにメソッドをミックスインし、webscoketのミドルウェアを追加出来るようにします
