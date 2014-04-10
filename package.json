@@ -19,7 +19,7 @@
     "url": "git://github.com/yukik/cocotte-mixin-ws.git"
   },
   "main": "application.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/yukik/cocotte-mixin-ws/issues"
