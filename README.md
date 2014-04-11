@@ -28,7 +28,7 @@ var app = koa();
 
 ```
 var koa = require('koa');
-var mixin = require('app-mixin-ws');
+var mixin = require('cocotte-mixin-ws');
 var app = mixin(koa)();
 ```
 
@@ -41,7 +41,7 @@ var app = mixin(koa)();
 ```js:example.js
 
 var koa = require('koa');
-var mixin = require('app-mixin-ws');
+var mixin = require('cocotte-mixin-ws');
 var app = mixin(koa)();
 
 // HTTPミドルウェアの追加
