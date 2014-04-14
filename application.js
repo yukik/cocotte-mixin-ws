@@ -30,7 +30,7 @@ var app = {};
 /**
  * WebSocket用のミドルウェアの追加
  * Use the given wsMiddleware `fn`.
- *
+ * @param {String} event
  * @param {GeneratorFunction} fn
  * @return {Application} self
  * @api public
@@ -97,6 +97,12 @@ app.wsListen = function (server) {
 
 };
 
+/**
+ * ミックスイン
+ * @method exports
+ * @param  {Application} target
+ * @return {Application}
+ */
 exports = module.exports = function wsExtend (target) {
 	target.prototype.ws = app.ws;
 	target.prototype.wsListen = app.wsListen;
