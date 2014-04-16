@@ -1,7 +1,7 @@
 {
   "name": "cocotte-mixin-ws",
   "description": "webscoketのミドルウェアをkoaで使えるようにする",
-  "homepage": "https://github.com/yukik",
+  "homepage": "https://github.com/yukik/cocotte-mixin-ws",
   "keywords": [
     "koa",
     "socket.io",
