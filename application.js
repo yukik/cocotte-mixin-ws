@@ -18,11 +18,10 @@ var socketIo = require('socket.io');
  * コールバック関数、例外発生時
  */
 var onerror = function(err){
-	if (err) {
-		console.error(err.stack);
-	}
+  if (err) {
+    console.error(err);
+  }
 };
-
 
 // Mix-in Object
 var app = {};
@@ -36,19 +35,19 @@ var app = {};
  * @api public
  */
 app.ws = function (event, fn) {
-	assert(typeof event === 'string', 'app.ws() requires string in first param');
-	assert('GeneratorFunction' === fn.constructor.name, 'app.ws() requires a generator function in second param');
-	debug('use %s', event);
+  assert(typeof event === 'string', 'app.ws() requires string in first param');
+  assert('GeneratorFunction' === fn.constructor.name, 'app.ws() requires a generator function in second param');
+  debug('use %s', event);
 
-	if (!this.wsMiddleware) {
-		this.wsMiddleware = {};
-	}
+  if (!this.wsMiddleware) {
+    this.wsMiddleware = {};
+  }
 
-	if (!this.wsMiddleware[event]) {
-		this.wsMiddleware[event] = [];
-	}
-	this.wsMiddleware[event].push(fn);
-	return this;
+  if (!this.wsMiddleware[event]) {
+    this.wsMiddleware[event] = [];
+  }
+  this.wsMiddleware[event].push(fn);
+  return this;
 };
 
 /**
@@ -57,43 +56,43 @@ app.ws = function (event, fn) {
  * @param  {Server} server
  */
 app.wsListen = function (server) {
-	var middleware = this.wsMiddleware || {};
-	var connectionMiddleware = null;
-	var otherMiddlewares = [];
+  var middleware = this.wsMiddleware || {};
+  var connectionMiddleware = null;
+  var otherMiddlewares = [];
 
-	// イベント毎にジェネレータを結合
-	Object.keys(middleware).forEach(function(event) {
-		if (event === 'connection') {
-			connectionMiddleware = compose(middleware.connection);
+  // イベント毎にジェネレータを結合
+  Object.keys(middleware).forEach(function(event) {
+    if (event === 'connection') {
+      connectionMiddleware = compose(middleware.connection);
 
-		} else {
-			otherMiddlewares.push([event, compose(middleware[event])]);
+    } else {
+      otherMiddlewares.push([event, compose(middleware[event])]);
 
-		}
-	});
+    }
+  });
 
-	if (!otherMiddlewares.length) {
-		throw new Error('イベントがひとつも登録されていません');
-	}
+  if (!otherMiddlewares.length) {
+    throw new Error('イベントがひとつも登録されていません');
+  }
 
-	// イベントリスナー登録
-	var io = socketIo.listen(server);
-	io.sockets.on('connection', function(socket) {
+  // イベントリスナー登録
+  var io = socketIo.listen(server);
+  io.sockets.on('connection', function(socket) {
 
-		var values = {};
+    var values = {};
 
-		// connectionのイベント処理
-		if (connectionMiddleware) {
-			co(connectionMiddleware).call({socket: socket, values: values}, onerror);
-		}
+    // connectionのイベント処理
+    if (connectionMiddleware) {
+      co(connectionMiddleware).call({socket: socket, values: values}, onerror);
+    }
 
-		// その他のイベント処理
-		otherMiddlewares.forEach(function(x) {
-			socket.on(x[0], function(param) {
-				co(x[1]).call({socket: socket, param: param, values: values}, onerror);
-			});
-		});
-	});
+    // その他のイベント処理
+    otherMiddlewares.forEach(function(x) {
+      socket.on(x[0], function(param) {
+        co(x[1]).call({socket: socket, param: param, values: values}, onerror);
+      });
+    });
+  });
 
 };
 
@@ -104,7 +103,7 @@ app.wsListen = function (server) {
  * @return {Application}
  */
 exports = module.exports = function wsExtend (target) {
-	target.prototype.ws = app.ws;
-	target.prototype.wsListen = app.wsListen;
-	return target;
+  target.prototype.ws = app.ws;
+  target.prototype.wsListen = app.wsListen;
+  return target;
 };
